@@ -1,4 +1,12 @@
 <?php
+/*+***********************************************************************************
+ * The contents of this file are subject to the Vtiger CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  Vtiger CRM Open Source
+ * The Initial Developer of the Original Code is Vtiger.
+ * Portions created by Vtiger are Copyright (C) www.vtiger.com
+ * All Rights Reserved.
+ *************************************************************************************/
 
 require_once('vtwsclib/Vtiger/Net/HTTP_Client.php');
 require_once('vtwsclib/Vtiger/WSVersion.php');
@@ -34,7 +42,7 @@ class Vtiger_WSClient {
 	/**
 	 * Constructor.
 	 */
-	function __construct($url) { 
+	function __construct($url) {
 		$this->_serviceurl = $this->getWebServiceURL($url);
 		$this->_client = new Vtiger_HTTP_Client($this->_serviceurl);
 	}
@@ -144,7 +152,7 @@ class Vtiger_WSClient {
 	function doLogin($username, $vtigerUserAccesskey) {
 		// Do the challenge before login
 		if($this->__doChallenge($username) === false) return false;
-		
+
 		$postdata = Array(
 			'operation' => 'login',
 			'username'  => $username,
@@ -171,7 +179,7 @@ class Vtiger_WSClient {
 		$this->__checkLogin();
 
 		// Make sure the query ends with ;
-		$query = trim($query);		
+		$query = trim($query);
 		if(strripos($query, ';') != strlen($query)-1) $query .= ';';
 
 		$getdata = Array(
@@ -212,14 +220,14 @@ class Vtiger_WSClient {
 		$resultdata = $this->_client->doGet($getdata, true);
 		if($this->hasError($resultdata)) {
 			return false;
-		}		
+		}
 		$modulenames = $resultdata[result][types];
 
 		$returnvalue = Array();
 		foreach($modulenames as $modulename) {
-			$returnvalue[$modulename] = 
+			$returnvalue[$modulename] =
 				Array ( 'name' => $modulename );
-		}		
+		}
 		return $returnvalue;
 	}
 
@@ -238,7 +246,7 @@ class Vtiger_WSClient {
 		$resultdata = $this->_client->doGet($getdata, true);
 		if($this->hasError($resultdata)) {
 			return false;
-		}		
+		}
 		return $resultdata[result];
 	}
 
@@ -257,7 +265,7 @@ class Vtiger_WSClient {
 		$resultdata = $this->_client->doGet($getdata, true);
 		if($this->hasError($resultdata)) {
 			return false;
-		}		
+		}
 		return $resultdata[result];
 	}
 
@@ -282,7 +290,7 @@ class Vtiger_WSClient {
 		$resultdata = $this->_client->doPost($postdata, true);
 		if($this->hasError($resultdata)) {
 			return false;
-		}		
+		}
 		return $resultdata[result];
 	}
 
@@ -296,7 +304,7 @@ class Vtiger_WSClient {
 	function doInvoke($method, $params = null, $type = 'POST') {
 		// Perform re-login if required
 		$this->__checkLogin();
-		
+
 		$senddata = Array(
 			'operation' => $method,
 			'sessionName' => $this->_sessionid
@@ -320,6 +328,6 @@ class Vtiger_WSClient {
 			return false;
 		}
 		return $resultdata[result];
-	}	
+	}
 }
 ?>

@@ -1,3 +1,12 @@
+#/*+***********************************************************************************
+# * The contents of this file are subject to the Vtiger CRM Public License Version 1.0
+# * ("License"); You may not use this file except in compliance with the License
+# * The Original Code is:  Vtiger CRM Open Source
+# * The Initial Developer of the Original Code is Vtiger.
+# * Portions created by Vtiger are Copyright (C) www.vtiger.com
+# * All Rights Reserved.
+# *************************************************************************************/
+
 # Setup include path for dependent libraries
 import sys, os, string
 JSON_DIR = string.rstrip(__file__, (os.sep + os.path.basename(__file__)))
@@ -43,7 +52,7 @@ class Vtiger_WSClient:
     @url URL to connect
     @parameters Parameter map (key, value pairs)
     @tojson True if response should be decoded as JSON
-    '''    
+    '''
     def __doGet(self, url, parameters=False, tojson=True):
         if not parameters: parameters = {}
         useurl = (url + '?%s') % urllib.urlencode(parameters);
@@ -57,7 +66,7 @@ class Vtiger_WSClient:
     @url URL to connect
     @parameters Parameter map (key, value pairs)
     @tojson True if response should be decoded as JSON
-    '''  
+    '''
     def __doPost(self, url, parameters=False, tojson=True):
         if not parameters: parameters = {}
         parameters = urllib.urlencode(parameters);
@@ -115,12 +124,12 @@ class Vtiger_WSClient:
     '''
     def getRecordId(self, record):
         ids = record.split('x')
-        return ids[1] 
+        return ids[1]
 
     '''
     Perform Challenge operation
     '''
-    def __doChallenge(self, username):        
+    def __doChallenge(self, username):
         parameters = {
             'operation' : 'getchallenge',
             'username' : username
@@ -184,13 +193,13 @@ class Vtiger_WSClient:
 
         # Make the query end with ;
         if not query.endswith(';'): query += ';'
-        
+
         parameters = {
             'operation'   : 'query',
             'sessionName' : self._sessionid,
             'query'       : query
         }
-        response = self.__doGet(self._serviceurl, parameters) 
+        response = self.__doGet(self._serviceurl, parameters)
         if self.hasError(response): return False
         result = response['result']
         return result
@@ -248,7 +257,7 @@ class Vtiger_WSClient:
             'elementType' : module,
             'element'     : self.toJSONString(valuemap)
         }
-                                
+
         response = self.__doPost(self._serviceurl, parameters)
         if self.hasError(response): return False
         result = response['result']
@@ -278,5 +287,5 @@ class Vtiger_WSClient:
         if self.hasError(response): return False
         result = response['result']
         return result
-    
-        
+
+

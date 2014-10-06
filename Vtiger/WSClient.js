@@ -1,3 +1,11 @@
+/*+***********************************************************************************
+ * The contents of this file are subject to the Vtiger CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  Vtiger CRM Open Source
+ * The Initial Developer of the Original Code is Vtiger.
+ * Portions created by Vtiger are Copyright (C) www.vtiger.com
+ * All Rights Reserved.
+ *************************************************************************************/
 var Vtiger_WSClient = function(url) {
 	this._servicebase = 'webservice.php';
 	// TODO: Format the url before appending servicebase
